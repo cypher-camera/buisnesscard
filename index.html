@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Floating Card</title>
+  <style>
+    /* General Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Fullscreen Background Video */
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Card Container */
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 900px;
+      height: 500px;
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 20px;
+      backdrop-filter: blur(10px); /* Blurred glass effect */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Left Section: Business Card Image */
+    .business-card {
+      flex: 1;
+      background: url("front.png") center/cover no-repeat; /* Replace with your business card image */
+      border-radius: 10px;
+      width: 400px;
+      height: 250px;
+    }
+
+    /* Right Section: Profile and Buttons */
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Profile Section */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ddd;
+    }
+
+    .profile h2 {
+      font-size: 24px;
+      margin: 5px 0;
+    }
+
+    /* Buttons Section */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .button {
+      width: 200px;
+      padding: 10px 15px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button.instagram {
+      background-color: #e4405f;
+    }
+
+    .button.instagram:hover {
+      background-color: #c13584;
+    }
+  </style>
+</head>
+<body>
+  <!-- Live Background Video -->
+  <video autoplay muted playsinline id="background-video"></video>
+
+  <div class="container">
+    <!-- Left: Business Card -->
+    <div class="business-card"></div>
+
+    <!-- Right: Profile and Buttons -->
+    <div class="details">
+      <!-- Profile Section -->
+      <div class="profile">
+        <img src="me.jpg" alt="Profile Picture"> <!-- Replace with your own profile picture -->
+        <h2>Your Name</h2>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <a href="https://instagram.com" target="_blank" class="button instagram">Instagram</a>
+        <a href="https://twitter.com" target="_blank" class="button">Twitter</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Access the user's camera and set it as the video background
+    const videoElement = document.getElementById('background-video');
+
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoElement.srcObject = stream;
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+        alert('Unable to access camera. Please check your permissions.');
+      }
+    }
+
+    startCamera();
+  </script>
+</body>
+</html>
